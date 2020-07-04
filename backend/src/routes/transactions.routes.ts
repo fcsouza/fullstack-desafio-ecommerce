@@ -3,52 +3,77 @@ import multer from 'multer';
 
 import { getCustomRepository } from 'typeorm';
 
-import TransactionsRepository from '../repositories/TransactionsRepository';
-import CreateTransactionService from '../services/CreateTransactionService';
-import DeleteTransactionService from '../services/DeleteTransactionService';
+import ProductsRepository from '../repositories/ProductsRepository';
+
+import CreateProductService from '../services/CreateProductService';
+import UpdateProductService from '../services/UpdateProductService';
+import DeleteProductService from '../services/DeleteProductService';
+
 import ImportTransactionsService from '../services/ImportTransactionsService';
 
 import uploadConfig from '../config/upload';
 
 const upload = multer(uploadConfig);
 
-const transactionsRouter = Router();
+const productsRouter = Router();
 
-transactionsRouter.post('/', async (request, response) => {
+productsRouter.post('/', async (request, response) => {
   const { title, type, rating, price } = request.body;
 
-  const createTransaction = new CreateTransactionService();
+  const createProduct = new CreateProductService();
 
-  const transaction = await createTransaction.execute({
+  const product = await createProduct.execute({
     title,
     type,
     rating,
     price,
   });
 
-  return response.json(transaction);
+  return response.json(product);
 });
 
-transactionsRouter.get('/', async (request, response) => {
-  const transactionsRepository = getCustomRepository(TransactionsRepository);
+productsRouter.get('/', async (request, response) => {
+  const productsRepository = getCustomRepository(ProductsRepository);
 
-  const transactions = await transactionsRepository.find();
+  const products = await productsRepository.find();
 
-  return response.json( transactions );
+  return response.json( products );
+});
+
+productsRouter.get('/:productId', async (request, response) => {
+  const { productId } = request.params;
+
+  const productsRepository = getCustomRepository(ProductsRepository);
+
+  const product = await productsRepository.findOne(productId);
+
+
+  return response.json( product );
 });
 
 
-transactionsRouter.delete('/:id', async (request, response) => {
+productsRouter.put('/:productId', async (request, response) => {
+  const { productId } = request.params;
+
+  const updateTransaction = new UpdateProductService();
+
+  const product = await updateTransaction.execute(productId,request.body);
+
+  return response.json(product);
+});
+
+
+productsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const deleteTransaction = new DeleteTransactionService();
+  const deleteProduct = new DeleteProductService();
 
-  await deleteTransaction.execute(id);
+  await deleteProduct.execute(id);
 
   return response.status(204).send();
 });
 
-transactionsRouter.post(
+productsRouter.post(
   '/import',
   upload.single('file'),
   async (request, response) => {
@@ -60,4 +85,4 @@ transactionsRouter.post(
   },
 );
 
-export default transactionsRouter;
+export default productsRouter;

@@ -7,8 +7,8 @@ import {
 } from 'typeorm';
 
 
-@Entity('transactions')
-class Transaction {
+@Entity('products')
+class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,4 +31,4 @@ class Transaction {
   updated_at: Date;
 }
 
-export default Transaction;
+export default Product;
