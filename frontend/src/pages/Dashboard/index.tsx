@@ -5,6 +5,7 @@ import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
 
 import Header from '../../components/Header';
+
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
 interface Product {
@@ -28,6 +29,16 @@ const Dashboard: React.FC = () => {
 
     loadProducts();
   }, []);
+
+  async function handleRemoveProduct(id:string) {
+    await api.delete(`products/${id}`);
+
+    const newProducts = products.filter(
+      (product) => product.id !== id
+    );
+
+    setProducts(newProducts);
+  }
 
   return (
     <>
@@ -58,13 +69,14 @@ const Dashboard: React.FC = () => {
               {products.map(product => (
                 <tr key={product.id}>
                   <td className="title">{product.title}</td>
-                  <td className={product.type}>
-                    {product.type}
-                  </td>
+                  <td>{product.type}</td>
                   <td>{product.rating}</td>
                   <td>{formatValue(product.price)}</td>
                   <td>{moment(product.created_at).format("DD/MM/YYYY")}</td>
-                  <td>botão</td>
+                  <td>
+                    <button onClick={() => handleRemoveProduct(product.id)}>Remover</button>
+                    <button onClick={() => handleRemoveProduct(product.id)}>Alterar</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
