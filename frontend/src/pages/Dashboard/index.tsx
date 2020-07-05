@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+//import Modal from '@material-ui/core/Modal';
 import moment from 'moment';
 
 import api from '../../services/api';
@@ -40,6 +41,12 @@ const Dashboard: React.FC = () => {
     setProducts(newProducts);
   }
 
+  async function handleUpdateProduct(id:string) {
+    const resposnse = await api.get(`products/${id}`);
+    console.log(resposnse.data);
+
+  }
+
   return (
     <>
       <Header />
@@ -75,7 +82,7 @@ const Dashboard: React.FC = () => {
                   <td>{moment(product.created_at).format("DD/MM/YYYY")}</td>
                   <td>
                     <button onClick={() => handleRemoveProduct(product.id)}>Remover</button>
-                    <button onClick={() => handleRemoveProduct(product.id)}>Alterar</button>
+                    <button onClick={() => handleUpdateProduct(product.id)}>Alterar</button>
                   </td>
                 </tr>
               ))}
