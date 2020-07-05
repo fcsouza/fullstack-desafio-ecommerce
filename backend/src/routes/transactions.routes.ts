@@ -9,7 +9,7 @@ import CreateProductService from '../services/CreateProductService';
 import UpdateProductService from '../services/UpdateProductService';
 import DeleteProductService from '../services/DeleteProductService';
 
-import ImportTransactionsService from '../services/ImportTransactionsService';
+import ImportProductsService from '../services/ImportProductsService';
 
 import uploadConfig from '../config/upload';
 
@@ -77,7 +77,7 @@ productsRouter.post(
   '/import',
   upload.single('file'),
   async (request, response) => {
-    const importTransactions = new ImportTransactionsService();
+    const importTransactions = new ImportProductsService();
 
     const transactions = await importTransactions.execute(request.file.path);
 
