@@ -34,6 +34,9 @@ Projeto de backend e frontend.
 ## 🏁 Iniciando <a name = "getting_started"></a>
 Instruções de como acessar as rotas e instalação.
 
+Run API
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Desafio%20Ecommerce&uri=https%3A%2F%2Fgithub.com%2Ffcsouza%2Ffullstack-desafio-ecommerce%2Fblob%2Fmaster%2F.github%2FInsomnia_2020-07-04.json)
 
 ### ⚒ Instalando <a name = "installing"></a>
 ```bash
@@ -61,8 +64,6 @@ $ cd fullstack-desafio-ecommerce/frontend
 $ npm i || yarn install
 $ npm run start || yarn start
 ```
-
---
 
 ## ✍️ Autor <a name = "authors"></a>
 
