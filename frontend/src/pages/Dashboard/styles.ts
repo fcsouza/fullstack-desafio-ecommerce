@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-interface CardProps {
-  total?: boolean;
-}
 
 export const Container = styled.div`
   width: 100%;
@@ -22,10 +19,9 @@ export const CardContainer = styled.section`
 `;
 
 export const Card = styled.div`
-  background: ${({ total }: CardProps): string => (total ? '#FF872C' : '#fff')};
+  background: #fff;
   padding: 22px 32px;
   border-radius: 5px;
-  color: ${({ total }: CardProps): string => (total ? '#fff' : '#363F5F')};
 
   header {
     display: flex;
@@ -71,14 +67,6 @@ export const TableContainer = styled.section`
 
       &.title {
         color: #363f5f;
-      }
-
-      &.income {
-        color: #12a454;
-      }
-
-      &.outcome {
-        color: #e83f5b;
       }
     }
 

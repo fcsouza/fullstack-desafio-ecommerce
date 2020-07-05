@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 
 import api from '../../services/api';
-
-import Header from '../../components/Header';
-
 import formatValue from '../../utils/formatValue';
 
+import Header from '../../components/Header';
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
-interface Transaction {
+interface Product {
   id: string;
   title: string;
   type: string;
@@ -17,18 +16,17 @@ interface Transaction {
   created_at: Date;
 }
 
-
 const Dashboard: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    async function loadTransactions(): Promise<void> {
+    async function loadProducts(): Promise<void> {
       const response = await api.get('products');
 
-      setTransactions(response.data);
+      setProducts(response.data);
     }
 
-    loadTransactions();
+    loadProducts();
   }, []);
 
   return (
@@ -36,13 +34,11 @@ const Dashboard: React.FC = () => {
       <Header />
       <Container>
         <CardContainer>
-
           <Card>
             <header>
-              <p>Dummy</p>
+              <p>Visualize seus arquivos, ou importe novos arquivos utilizados a ferramenta para importar arquivos.</p>
             </header>
           </Card>
-
         </CardContainer>
 
         <TableContainer>
@@ -59,15 +55,15 @@ const Dashboard: React.FC = () => {
             </thead>
 
             <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction.id}>
-                  <td className="title">{transaction.title}</td>
-                  <td className={transaction.type}>
-                    {transaction.type}
+              {products.map(product => (
+                <tr key={product.id}>
+                  <td className="title">{product.title}</td>
+                  <td className={product.type}>
+                    {product.type}
                   </td>
-                  <td>{transaction.rating}</td>
-                  <td>{formatValue(transaction.price)}</td>
-                  <td>{transaction.created_at}</td>
+                  <td>{product.rating}</td>
+                  <td>{formatValue(product.price)}</td>
+                  <td>{moment(product.created_at).format("DD/MM/YYYY")}</td>
                   <td>botão</td>
                 </tr>
               ))}

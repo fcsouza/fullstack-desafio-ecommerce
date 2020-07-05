@@ -32,7 +32,7 @@ const Import: React.FC = () => {
     data.append('file', file.file, file.name);
 
     try {
-      await api.post('/transactions/import', data);
+      await api.post('/products/import', data);
 
       history.push('/');
     } catch (err) {
@@ -54,7 +54,7 @@ const Import: React.FC = () => {
     <>
       <Header size="small" />
       <Container>
-        <Title>Importar uma transação</Title>
+        <Title>Importar produts</Title>
         <ImportFileContainer>
           <Upload onUpload={submitFile} />
           {!!uploadedFiles.length && <FileList files={uploadedFiles} />}
@@ -62,7 +62,7 @@ const Import: React.FC = () => {
           <Footer>
             <p>
               <img src={alert} alt="Alert" />
-              Permitido apenas arquivos CSV
+              Permitido apenas arquivos JSON
             </p>
             <button onClick={handleUpload} type="button">
               Enviar
